@@ -26,3 +26,12 @@ button.btn.btn-primary {
   border-radius: 10px;
   padding: 4px 30px;
 }
+
+imput{
+  background-color: rgb(0,0,0,0);
+  background-image: none;
+}
+
+div.card{
+  min-height: 18rem;
+}

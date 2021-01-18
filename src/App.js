@@ -8,19 +8,24 @@ import {
 } from "react-router-dom";
 /**/import Weather      from './Weather';
 import News         from './News';
-import TasksMod     from './TasksMod';
+import Tasks        from './Tasks';
 import Dash         from './Dash';
+import Photos       from './Photos';
+import Sport        from './Sport';
 import Login        from './Login';
 import Register     from './Register';
 
 import PrivRoute    from "./PrivRoute";
 import PubRoute     from './PubRoute';
 
+import update from 'immutability-helper';
+
 /*import Card         from 'react-bootstrap/Card';
 import Container    from 'react-bootstrap/Container';
 import Row          from 'react-bootstrap/Row';
 import Col          from 'react-bootstrap/Col';*/
-import {useState} from "react";
+import {useCallback, useState} from "react";
+import SportMod from "./SportMod";
 
 function App() {
 
@@ -40,8 +45,7 @@ function App() {
         console.log('isloggedin', result);
         return result;
     }
-
-    const tasksList = [
+    const [tasks, setTask] = useState( [
         {
             id: 1,
             text: 'My Task 1',
@@ -57,10 +61,53 @@ function App() {
             text: 'My Task 3',
             done: true
         }
-    ];
-    const [tasks, setTask] = useState( tasksList );
+    ] );
+    const addTask = useCallback( () => {
 
-    console.log('app_tasks', tasks);
+        let newTask = {id: tasks.length + 1, text: 'New task', done: false};
+        setTask( update( tasks, {
+            $push: [ newTask ],
+        } ) );
+    }, [tasks] );
+    const setTaskDone = useCallback((taskID, done) => {
+        const foundTask = tasks.filter( t => t.id === taskID )[0];
+        const taskIndex = tasks.indexOf( foundTask );
+
+
+        console.log('Tasks',tasks);
+        console.log('TaskID',taskID);
+        console.log('Task',taskIndex);
+        console.log('Taskdone',done);
+
+        foundTask.done = done;
+
+        setTask(update(tasks, {
+            $splice: [
+                [taskIndex, 1],
+                [taskIndex, 0, foundTask],
+            ],
+        }));
+    }, [tasks] )
+    const setTaskText = useCallback( (taskID, newText) => {
+        const foundTask = tasks.filter( t => t.id === taskID )[0];
+        const taskIndex = tasks.indexOf( foundTask );
+
+        console.log('Tasks',tasks);
+        console.log('TaskID',taskID);
+
+        foundTask.text = newText;
+
+        setTask(update(tasks, {
+            $splice: [
+                [taskIndex, 1],
+                [taskIndex, 0, foundTask],
+            ],
+        }));
+    }, [tasks] );
+
+    const [team, setTeam] = useState( 'Atalanta' );
+
+
     return (
 
         <Router>
@@ -78,10 +125,16 @@ function App() {
                         <News />
                     </PrivRoute>
                     <PrivRoute path="/tasks" isLoggedIn={isLoggedIn} >
-                        <TasksMod tasks={tasks}/>
+                        <Tasks tasks={tasks} addTask={addTask} setTaskDone={setTaskDone} updateTaskText={setTaskText}/>
+                    </PrivRoute>
+                    <PrivRoute path="/photos" isLoggedIn={isLoggedIn} >
+                        <Photos />
+                    </PrivRoute>
+                    <PrivRoute path="/sport" isLoggedIn={isLoggedIn} >
+                        <Sport setTeam={setTeam}  team={team} />
                     </PrivRoute>
                     <PrivRoute path="/" isLoggedIn={isLoggedIn} >
-                        <Dash tasks={tasks}/>
+                        <Dash tasks={tasks} username={username} setTaskDone={setTaskDone} updateTaskText={setTaskText} team={team}/>
                     </PrivRoute>
                 </Switch>
             </div>

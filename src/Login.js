@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 
-import Form         from 'react-bootstrap/Form';
 import FormControl  from 'react-bootstrap/FormControl';
 import FormLabel    from 'react-bootstrap/FormLabel';
 import FormGroup    from 'react-bootstrap/FormGroup';
@@ -40,25 +39,32 @@ const Login = ({doLogin}) => {
         )
     }
 
+    const inputStyle = {
+        backgroundColor: 'rgba(0,0,0,0.01)',
+        color: 'white',
+        border: 0,
+        borderBottom: '1px solid white',
+    }
+    const marginRight = '5rem';
+
     return (
         <div className="App">
             <header>
                 <h1 className='' >Dev Challenge</h1>
             </header>
             <Container>
-                <Form onSubmit={login} >
-                    <FormGroup controlId='loginUsername' value={username} onChange={e => {setUsername(e.target.value)}}>
-                        <FormControl type='text'     placeholder='User Name' />
-                    </FormGroup>
-                    <FormGroup controlId='loginPassword' value={password} onChange={e => {setPassword(e.target.value)}} >
-                        <FormControl type='password' placeholder='Password' />
-                    </FormGroup>
-                    <Button variant='primary' type='submit' onClick={login} >
+                <form onSubmit={login} >
+                    <input style={{...inputStyle, marginRight}} type='text'     value={username} onChange={e => {setUsername(e.target.value)}} placeholder='User Name'/>
+                    <input style={inputStyle} type='password' value={password} onChange={e => {setPassword(e.target.value)}}  placeholder='Password'/>
+                    <br/>
+                    <button className='btn btn-primary' type='submit'  style={{marginTop: '10rem'}} >
                         Login
-                    </Button>
-                    <div>New user: <Link to='/register' >Signup</Link></div>
-                </Form>
-                <div>{msg}</div>
+                    </button>
+                    <div style={{marginTop: '1rem', color: 'white'}}>New user:
+                        <Link style={{color: 'yellow', fontWeight: 'bold'}} to='/register' > Signup</Link></div>
+                </form>
+                <div style={{marginTop: '1rem', color: 'yellow'}}>{msg}</div>
+
             </Container>
         </div>
     )

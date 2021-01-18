@@ -9,6 +9,7 @@ import Row          from 'react-bootstrap/Row';
 import Col          from 'react-bootstrap/Col';
 import {Button} from "react-bootstrap";
 import netAPI from "./NetAPI";
+import {Link} from "react-router-dom";
 
 const Register = ({doLogin}) => {
 
@@ -18,7 +19,9 @@ const Register = ({doLogin}) => {
     const [email,    setEmail]    = useState('');
     const [picture,  setPicture]  = useState('');
 
-    const login = (event) => {
+    const [msg, setMsg]          = useState('');
+
+    const register = (event) => {
 
         const form = event.currentTarget;
 
@@ -33,16 +36,41 @@ const Register = ({doLogin}) => {
             doLogin(username);
         });
     }
+    const inputStyle = {
+        backgroundColor: 'rgba(0,0,0,0.01)',
+        color: 'white',
+        border: 0,
+        borderBottom: '1px solid white',
+    }
+    const marginRight = '5rem';
 
     return (
-        <div>
+        <div className="App">
+            <header>
+                <h1 className='' >Dev Challenge</h1>
+            </header>
             <Container>
+                <form onSubmit={register} >
+                    <input style={{...inputStyle, marginRight}} type='text'     value={username} onChange={e => {setUsername(e.target.value)}} placeholder='User Name'/>
+                    <input style={inputStyle}                   type='email'     value={email} onChange={e => {setEmail(e.target.value)}}       placeholder='Email' />
+                    <br style={{marginBottom: '2rem'}}/>
+                    <input style={{...inputStyle, marginRight}} type='password' value={password} onChange={e => {setPassword(e.target.value)}}  placeholder='Password'/>
+                    <input style={inputStyle} type='password' value={password} onChange={e => {setPassword(e.target.value)}}  placeholder='Confirm password'/>
+                    <br/>
+                    <button className='btn btn-primary' type='submit'  style={{marginTop: '10rem'}} >
+                        Register
+                    </button>
+                </form>
+                <div style={{marginTop: '1rem', color: 'yellow'}}>{msg}</div>
+
+            </Container>
+            {/*<Container>
                 <Row>
                     <Col md={{span: 4, offset: 2}} >
                         <h1>Register</h1>
                     </Col>
                 </Row>
-                <Form onSubmit={login} >
+                <Form onSubmit={register} >
                     <FormGroup controlId='loginUsername' value={username} onChange={e => {setUsername(e.target.value)}} >
                         <FormControl type='text'     placeholder='User Name' />
                     </FormGroup>
@@ -53,11 +81,11 @@ const Register = ({doLogin}) => {
                         <FormControl type='password' placeholder='Password'  value={password} onChange={e => {setPassword(e.target.value)}} />
                     </FormGroup>
 
-                    <Button variant='primary' type='submit' onClick={login} >
+                    <Button variant='primary' type='submit' onClick={register} >
                         Register
                     </Button>
                 </Form>
-            </Container>
+            </Container>*/}
         </div>
     )
 }

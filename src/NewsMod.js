@@ -9,12 +9,9 @@ const NewsMod = () => {
     const retrieveNews = () => {
 
         const response = netAPI({system: 'news'}, (response) => {
-            setNewsDesc(response.newstext);
+            setNewsDesc(response.newShort);
             setNewsHead(response.newsheadline);
         });
-
-
-
     }
 
     React.useEffect( retrieveNews, [] );
@@ -22,9 +19,9 @@ const NewsMod = () => {
     return (
 
        <>
-            <div>News</div>
-            <div>{newsHead}</div>
-            <div>{newsDesc}</div>
+
+            <div style={{fontWeight: 'bold', marginBottom: '1rem', textDecoration: 'none'}}>{newsHead}</div>
+            <div style={{textDecoration: 'none'}}>{newsDesc}</div>
 </>
     );
 }

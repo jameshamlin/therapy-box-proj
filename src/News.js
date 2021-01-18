@@ -20,6 +20,7 @@ const News = () => {
 
             setNewsDesc(response.newstext);
             setNewsHead(response.newsheadline);
+            setNewsImg(response.img);
         });
     }
 
@@ -27,26 +28,38 @@ const News = () => {
 
     return (
 
+       <div className="App">
+
         <Container>
             <Row>
                 <Col md={{span: 2}} >
-                    <h1>News</h1>
+                    <header>
+                        <h1 className='' >News</h1>
+                    </header>
                 </Col>
-                <Col md={{span: 4, offset: 2}} >
-                   <Image src={newsImg} />
+                <Col md={{span: 4, offset: 1}} >
+                   <Image
+                        style={{
+                            border: '1px solid yellow',
+                            maxWidth: '30rem',
+                            margin: '4rem 0',
+                            borderRadius: '10px'
+                        }}
+                       src={newsImg} />
                  </Col>
             </Row>
             <Row>
                 <Col md={{span: 4, offset: 4}} >
-            <div>{newsHead}</div>
+            <div style={{color: 'white', fontWeight: 'bold'}}>{newsHead}</div>
                 </Col>
             </Row>
             <Row>
                 <Col md={{span: 8, offset: 2}} >
-            <div>{newsDesc}</div>
+            <div style={{color: 'white'}}>{newsDesc}</div>
                 </Col>
             </Row>
         </Container>
+       </div>
     );
 }
 

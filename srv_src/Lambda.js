@@ -60,9 +60,14 @@ const doNews = async (client, resultBody, username, token) => {
 
     if(resultBody.status){
 
-        resultBody.newsheadline = 'Headline';
-        resultBody.newstext     = 'news text - lorem';
-        resultBody.newShort     = 'Longtext';
+        resultBody.newsheadline = 'Covid-19: Vaccine rollout extended to over-70s in England';
+        resultBody.newstext     = `People in England aged 70 and over, as well as those listed as clinically extremely vulnerable, will begin receiving offers of a coronavirus vaccine this week.
+            Prime Minister Boris Johnson said the move was a "significant milestone" in the nation's vaccination programme.
+            More than five million people - from priority groups three and four - will be invited from Monday to have the jab.
+            It comes as 10 new mass vaccination hubs open across England.
+            Health Secretary Matt Hancock will lead a Downing Street news briefing later, No 10 has said.`;
+        resultBody.newShort     = 'People in England aged 70 and over, as well as those listed as clinically extremely vulnerable, will begin receiving offers of a coronavirus vaccine this week.';
+        resultBody.img          = 'https://ichef.bbci.co.uk/news/1024/branded_news/15EF6/production/_116564898_gettyimages-1297015823.jpg';
     }
 }
 

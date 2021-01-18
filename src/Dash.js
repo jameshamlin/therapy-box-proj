@@ -18,8 +18,9 @@ import {
     Route,
     Link
 } from "react-router-dom";
+import Tasks from "./Tasks";
 
-function Dash({tasks}) {
+function Dash({tasks, username, updateTaskText,setTaskDone, team}) {
 
     console.log('dash_tasks', tasks);
     const cardStyle = {
@@ -39,9 +40,9 @@ function Dash({tasks}) {
     return (
         <div className="App">
             <header>
-                <h1 className='' >Good day</h1>
+                <h1 className='' >Good day {username}</h1>
             </header>
-            <Container fluid="lg">
+            <Container >
                 <Row >
                     <Col style={colStyle} >
                         <Card style={cardStyle} className='border-warning' >
@@ -62,23 +63,29 @@ function Dash({tasks}) {
                         </Card>
                         </Link>
                     </Col>
+
                     <Col style={colStyle}>
+                        <Link to='/sport' >
                         <Card style={cardStyle} >
                             <Card.Header style={cardHeaderStyle}>Sport</Card.Header>
                             <Card.Body>
-                                <SportMod />
+                                <SportMod team={team} />
                             </Card.Body>
                         </Card>
+                        </Link>
                     </Col>
+
                 </Row>
                 <Row>
                     <Col style={colStyle}>
+
                         <Card style={cardStyle} >
                             <Card.Header style={cardHeaderStyle}>Photos</Card.Header>
                             <Card.Body>
                                 <PhotoMod />
                             </Card.Body>
                         </Card>
+
                     </Col>
 
                     <Col style={colStyle}>
@@ -86,7 +93,7 @@ function Dash({tasks}) {
                         <Card style={cardStyle} >
                             <Card.Header style={cardHeaderStyle}>Tasks</Card.Header>
                             <Card.Body>
-                                <TaskMod tasks={tasks} />
+                                <TaskMod tasks={tasks} setTaskDone={setTaskDone} updateTaskText={updateTaskText}/>
                             </Card.Body>
                         </Card>
                         </Link>
